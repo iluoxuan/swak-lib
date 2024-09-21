@@ -7,12 +7,10 @@ package com.swak.lib.client.entity;
  */
 public class ApiResult<T> {
 
-    private String errMsg;
+    private String msg;
 
     private String code;
 
     private T data;
-
-
 
 }
