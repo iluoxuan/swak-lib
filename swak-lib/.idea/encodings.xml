@@ -7,6 +7,8 @@
     <file url="file://$PROJECT_DIR$/swak-bom/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/swak-client/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/swak-client/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/swak-dao/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/swak-dao/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/swak-tools/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/swak-tools/src/main/resources" charset="UTF-8" />
   </component>

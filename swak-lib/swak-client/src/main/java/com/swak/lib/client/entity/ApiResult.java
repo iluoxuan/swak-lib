@@ -13,11 +13,13 @@ import lombok.Data;
 @Data
 public class ApiResult<T> {
 
+    @ApiModelProperty("msg:")
     private String msg;
 
-    @ApiModelProperty
+    @ApiModelProperty("code:")
     private String code;
 
+    @ApiModelProperty("data: 业务数据")
     private T data;
 
 }
