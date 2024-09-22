@@ -12,7 +12,7 @@
         <module>swak-bom</module>
         <module>swak-client</module>
         <module>swak-common</module>
-        <module>swak-dao</module>
+        <module>swak-mybatis-plus</module>
     </modules>
 
     <properties>
