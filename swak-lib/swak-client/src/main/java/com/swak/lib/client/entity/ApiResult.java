@@ -52,6 +52,10 @@ public class ApiResult<T> {
         return apiResult;
     }
 
+    public static ApiResult<PageRes<Void>> emptyPage() {
+
+        return success(new PageRes<>());
+    }
 
 
 }

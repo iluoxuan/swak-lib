@@ -11,7 +11,7 @@
     <modules>
         <module>swak-bom</module>
         <module>swak-client</module>
-        <module>swak-tools</module>
+        <module>swak-common</module>
         <module>swak-dao</module>
     </modules>
 
