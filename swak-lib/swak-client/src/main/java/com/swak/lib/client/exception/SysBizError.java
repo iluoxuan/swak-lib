@@ -3,6 +3,8 @@ package com.swak.lib.client.exception;
 import lombok.Getter;
 
 /**
+ * 复杂点可以 系统-业务-code
+ *
  * @author: ljq
  * @date: 2024/9/22
  */
