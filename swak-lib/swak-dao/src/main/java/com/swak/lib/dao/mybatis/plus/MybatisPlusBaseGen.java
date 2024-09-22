@@ -31,7 +31,7 @@ public abstract class MybatisPlusBaseGen {
                 .addTableFills(new Column("create_time", FieldFill.INSERT))
                 .addTableFills(new Property("updateTime", FieldFill.INSERT_UPDATE))
                 .idType(IdType.AUTO)
-                .formatFileName("%sEntity")
+                .formatFileName("%DO")
                 .build();
     }
 
