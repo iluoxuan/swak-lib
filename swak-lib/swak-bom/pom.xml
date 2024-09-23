@@ -18,7 +18,7 @@
         <target.version>1.8</target.version>
 
         <spring-boot.version>2.7.18</spring-boot.version>
-        <revision>1.0-SNAPSHOT</revision>
+        <revision>1.0.0-SNAPSHOT</revision>
     </properties>
 
     <dependencyManagement>

@@ -6,10 +6,17 @@
     <parent>
         <groupId>com.swak</groupId>
         <artifactId>swak-lib</artifactId>
-        <version>${revision}</version>
+        <version>1.0-SNAPSHOT</version>
     </parent>
-
-    <artifactId>swak-mybatis-plus</artifactId>
+    <groupId>com.swak.demo</groupId>
+    <artifactId>swak-demo</artifactId>
+    <version>1.0-SNAPSHOT</version>
+    <packaging>pom</packaging>
+    <modules>
+        <module>demo-api</module>
+        <module>demo-dao</module>
+        <module>demo-server</module>
+    </modules>
 
     <properties>
         <maven.compiler.source>8</maven.compiler.source>
@@ -17,21 +24,4 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
 
-    <dependencies>
-
-        <dependency>
-            <groupId>com.swak</groupId>
-            <artifactId>swak-client</artifactId>
-        </dependency>
-
-        <dependency>
-            <groupId>com.baomidou</groupId>
-            <artifactId>mybatis-plus-boot-starter</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>com.baomidou</groupId>
-            <artifactId>mybatis-plus-generator</artifactId>
-        </dependency>
-
-    </dependencies>
 </project>
