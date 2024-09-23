@@ -19,6 +19,8 @@
 
         <spring-boot.version>2.7.18</spring-boot.version>
         <revision>1.0.0-SNAPSHOT</revision>
+        <swagger-models>1.6.6</swagger-models>
+        <mybatis-plus>3.5.7</mybatis-plus>
     </properties>
 
     <dependencyManagement>
@@ -36,6 +38,30 @@
                 <groupId>com.swak</groupId>
                 <artifactId>swak-client</artifactId>
                 <version>${revision}</version>
+            </dependency>
+
+            <!--knife4j swagger-->
+            <dependency>
+                <groupId>com.github.xiaoymin</groupId>
+                <artifactId>knife4j-dependencies</artifactId>
+                <version>4.5.0</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+            <dependency>
+                <groupId>io.swagger</groupId>
+                <artifactId>swagger-annotations</artifactId>
+                <version>${swagger-models}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.baomidou</groupId>
+                <artifactId>mybatis-plus-boot-starter</artifactId>
+                <version>${mybatis-plus}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.baomidou</groupId>
+                <artifactId>mybatis-plus-generator</artifactId>
+                <version>${mybatis-plus}</version>
             </dependency>
 
         </dependencies>

@@ -5,8 +5,8 @@
     <file url="file://$PROJECT_DIR$/demo-api/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/demo-dao/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/demo-dao/src/main/resources" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/demo-server/src/main/java" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/demo-server/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/demo-service/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/demo-service/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/main/resources" charset="UTF-8" />
   </component>
