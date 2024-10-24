@@ -39,12 +39,10 @@ public class ApiRes<T> {
         return isSuccess() && Objects.isNull(data);
     }
 
-    @JsonIgnore
     public static ApiRes<Void> success() {
         return success(null);
     }
 
-    @JsonIgnore
     public static <T> ApiRes<T> success(T data) {
         ApiRes<T> apiResult = new ApiRes<>();
         apiResult.setCode(SysBizError.SUCCESS.getCode());
@@ -53,7 +51,6 @@ public class ApiRes<T> {
         return apiResult;
     }
 
-    @JsonIgnore
     public static ApiRes<Void> sysError() {
         ApiRes<Void> apiResult = new ApiRes<>();
         apiResult.setCode(SysBizError.SYS_ERROR.getCode());
@@ -61,7 +58,6 @@ public class ApiRes<T> {
         return apiResult;
     }
 
-    @JsonIgnore
     public static ApiRes<PageRes<Void>> emptyPage() {
 
         return success(new PageRes<>());
