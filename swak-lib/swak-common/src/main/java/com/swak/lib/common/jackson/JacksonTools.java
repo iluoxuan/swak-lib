@@ -1,7 +1,11 @@
 package com.swak.lib.common.jackson;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
+import com.fasterxml.jackson.databind.introspect.Annotated;
+import com.fasterxml.jackson.databind.introspect.AnnotatedMember;
+import com.fasterxml.jackson.databind.introspect.JacksonAnnotationIntrospector;
 import com.fasterxml.jackson.databind.ser.std.ToStringSerializer;
 import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateDeserializer;
 import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateTimeDeserializer;
@@ -68,7 +72,6 @@ public class JacksonTools {
             builder.serializers(new LocalDateTimeSerializer(DateTimeFormatter.ofPattern(DEFAULT_DATETIME_PATTERN)));
             builder.serializers(new LocalDateSerializer(DateTimeFormatter.ofPattern(DEFAULT_DATE_FORMAT)));
             builder.serializers(new LocalTimeSerializer(DateTimeFormatter.ofPattern(DEFAULT_TIME_FORMAT)));
-
         };
     }
 
@@ -81,5 +84,10 @@ public class JacksonTools {
         Jackson2ObjectMapperBuilder builder = new Jackson2ObjectMapperBuilder();
         jackson2ObjectMapperBuilderCustomizer().customize(builder);
         return builder.build();
+    }
+
+    public static void main(String[] args) throws JsonProcessingException {
+        String jsonString = MAPPER.writeValueAsString(new User("test"));
+        System.out.println(jsonString);
     }
 }

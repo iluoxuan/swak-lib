@@ -18,7 +18,7 @@
         <target.version>1.8</target.version>
 
         <spring-boot.version>2.7.18</spring-boot.version>
-        <revision>1.0.0-SNAPSHOT</revision>
+        <revision>1.0.1-SNAPSHOT</revision>
         <swagger-models>1.6.6</swagger-models>
         <mybatis-plus>3.5.7</mybatis-plus>
 
@@ -52,6 +52,11 @@
             <dependency>
                 <groupId>com.swak</groupId>
                 <artifactId>swak-client</artifactId>
+                <version>${revision}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.swak</groupId>
+                <artifactId>swak-common</artifactId>
                 <version>${revision}</version>
             </dependency>
             <dependency>

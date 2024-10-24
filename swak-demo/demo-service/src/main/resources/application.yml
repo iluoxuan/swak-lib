@@ -4,5 +4,3 @@ server:
 spring:
   application:
     name: swak-demo
-  jackson:
-    property-naming-strategy:

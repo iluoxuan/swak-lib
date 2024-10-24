@@ -1,5 +1,6 @@
 package com.swak.lib.client.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.swak.lib.client.exception.SysBizError;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
@@ -28,18 +29,22 @@ public class ApiRes<T> {
     @ApiModelProperty("traceId")
     private String traceId;
 
+    @JsonIgnore
     public boolean isSuccess() {
         return SysBizError.SUCCESS.getCode().equals(code);
     }
 
+    @JsonIgnore
     public boolean isSuccessNoData() {
         return isSuccess() && Objects.isNull(data);
     }
 
+    @JsonIgnore
     public static ApiRes<Void> success() {
         return success(null);
     }
 
+    @JsonIgnore
     public static <T> ApiRes<T> success(T data) {
         ApiRes<T> apiResult = new ApiRes<>();
         apiResult.setCode(SysBizError.SUCCESS.getCode());
@@ -48,6 +53,7 @@ public class ApiRes<T> {
         return apiResult;
     }
 
+    @JsonIgnore
     public static ApiRes<Void> sysError() {
         ApiRes<Void> apiResult = new ApiRes<>();
         apiResult.setCode(SysBizError.SYS_ERROR.getCode());
@@ -55,6 +61,7 @@ public class ApiRes<T> {
         return apiResult;
     }
 
+    @JsonIgnore
     public static ApiRes<PageRes<Void>> emptyPage() {
 
         return success(new PageRes<>());
