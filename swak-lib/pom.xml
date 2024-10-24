@@ -6,7 +6,7 @@
 
     <groupId>com.swak</groupId>
     <artifactId>swak-lib</artifactId>
-    <version>1.0.0-SNAPSHOT</version>
+    <version>${revision}</version>
     <packaging>pom</packaging>
     <modules>
         <module>swak-bom</module>
@@ -21,14 +21,12 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <!--使用revision控制 多模块版本 -->
         <revision>1.0.0-SNAPSHOT</revision>
-        <swagger-models>1.6.6</swagger-models>
-        <mybatis-plus>3.5.7</mybatis-plus>
+
     </properties>
 
     <dependencyManagement>
 
         <dependencies>
-
 
             <dependency>
                 <groupId>com.swak</groupId>
@@ -40,5 +38,36 @@
 
         </dependencies>
     </dependencyManagement>
+
+    <build>
+        <plugins>
+
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>flatten-maven-plugin</artifactId>
+                <configuration>
+                    <updatePomFile>true</updatePomFile>
+                    <flattenMode>resolveCiFriendliesOnly</flattenMode>
+                </configuration>
+                <executions>
+                    <execution>
+                        <id>flatten</id>
+                        <phase>process-resources</phase>
+                        <goals>
+                            <goal>flatten</goal>
+                        </goals>
+                    </execution>
+                    <execution>
+                        <id>flatten-clean</id>
+                        <phase>clean</phase>
+                        <goals>
+                            <goal>clean</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+
+        </plugins>
+    </build>
 
 </project>

@@ -6,7 +6,7 @@
 
     <groupId>com.swak</groupId>
     <artifactId>swak-bom</artifactId>
-    <version>1.0.0-SNAPSHOT</version>
+    <version>${revision}</version>
     <packaging>pom</packaging>
 
     <properties>
@@ -21,6 +21,9 @@
         <revision>1.0.0-SNAPSHOT</revision>
         <swagger-models>1.6.6</swagger-models>
         <mybatis-plus>3.5.7</mybatis-plus>
+
+        <flatten-maven-plugin.version>1.2.7</flatten-maven-plugin.version>
+
     </properties>
 
     <dependencyManagement>
@@ -37,12 +40,12 @@
             <dependency>
                 <groupId>com.swak</groupId>
                 <artifactId>swak-client</artifactId>
-                <version>1.0.0-SNAPSHOT</version>
+                <version>${revision}</version>
             </dependency>
             <dependency>
                 <groupId>com.swak</groupId>
                 <artifactId>swak-mybatis-plus</artifactId>
-                <version>1.0.0-SNAPSHOT</version>
+                <version>${revision}</version>
             </dependency>
 
             <!--knife4j swagger-->
@@ -73,5 +76,45 @@
 
     </dependencyManagement>
 
+
+    <build>
+
+        <pluginManagement>
+            <plugins>
+                <plugin>
+                    <groupId>org.codehaus.mojo</groupId>
+                    <artifactId>flatten-maven-plugin</artifactId>
+                    <version>${flatten-maven-plugin.version}</version>
+                    <configuration>
+                        <updatePomFile>true</updatePomFile>
+                        <flattenMode>resolveCiFriendliesOnly</flattenMode>
+                    </configuration>
+                    <executions>
+                        <execution>
+                            <id>flatten</id>
+                            <phase>process-resources</phase>
+                            <goals>
+                                <goal>flatten</goal>
+                            </goals>
+                        </execution>
+                        <execution>
+                            <id>flatten-clean</id>
+                            <phase>clean</phase>
+                            <goals>
+                                <goal>clean</goal>
+                            </goals>
+                        </execution>
+                    </executions>
+                </plugin>
+            </plugins>
+        </pluginManagement>
+
+        <plugins>
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>flatten-maven-plugin</artifactId>
+            </plugin>
+        </plugins>
+    </build>
 
 </project>
