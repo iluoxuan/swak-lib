@@ -14,7 +14,7 @@ import java.util.Objects;
  */
 @ApiModel("api返回结果")
 @Data
-public class ApiResult<T> {
+public class ApiRes<T> {
 
     @ApiModelProperty("msg:")
     private String msg;
@@ -25,6 +25,9 @@ public class ApiResult<T> {
     @ApiModelProperty("data: 业务数据")
     private T data;
 
+    @ApiModelProperty("traceId")
+    private String traceId;
+
     public boolean isSuccess() {
         return SysBizError.SUCCESS.getCode().equals(code);
     }
@@ -33,26 +36,26 @@ public class ApiResult<T> {
         return isSuccess() && Objects.isNull(data);
     }
 
-    public static ApiResult<Void> success() {
+    public static ApiRes<Void> success() {
         return success(null);
     }
 
-    public static <T> ApiResult<T> success(T data) {
-        ApiResult<T> apiResult = new ApiResult<>();
+    public static <T> ApiRes<T> success(T data) {
+        ApiRes<T> apiResult = new ApiRes<>();
         apiResult.setCode(SysBizError.SUCCESS.getCode());
         apiResult.setMsg(SysBizError.SUCCESS.getMsg());
         apiResult.setData(data);
         return apiResult;
     }
 
-    public static ApiResult<Void> sysError() {
-        ApiResult<Void> apiResult = new ApiResult<>();
+    public static ApiRes<Void> sysError() {
+        ApiRes<Void> apiResult = new ApiRes<>();
         apiResult.setCode(SysBizError.SYS_ERROR.getCode());
         apiResult.setMsg(SysBizError.SYS_ERROR.getMsg());
         return apiResult;
     }
 
-    public static ApiResult<PageRes<Void>> emptyPage() {
+    public static ApiRes<PageRes<Void>> emptyPage() {
 
         return success(new PageRes<>());
     }
