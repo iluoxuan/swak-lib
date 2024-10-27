@@ -136,7 +136,7 @@ public abstract class AbstractExceptionHandler {
     @ResponseStatus(HttpStatus.OK)
     ApiRes<Void> messageConversionException(Exception e) {
         log.error("messageConversionException message={}", e.getMessage());
-        return ApiRes.argumentError("请求体异常");
+        return ApiRes.argumentError("请求体/请求方式异常");
     }
 
 

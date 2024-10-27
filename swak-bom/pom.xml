@@ -29,6 +29,7 @@
         <mybatis-plus>3.5.7</mybatis-plus>
         <mysql.version>8.0.33</mysql.version>
         <velocity-engine>2.4</velocity-engine>
+        <hutool.version>5.8.16</hutool.version>
 
         <flatten-maven-plugin.version>1.2.7</flatten-maven-plugin.version>
 
@@ -41,6 +42,13 @@
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-dependencies</artifactId>
                 <version>${spring-boot.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+            <dependency>
+                <groupId>cn.hutool</groupId>
+                <artifactId>hutool-bom</artifactId>
+                <version>${hutool.version}</version>
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
