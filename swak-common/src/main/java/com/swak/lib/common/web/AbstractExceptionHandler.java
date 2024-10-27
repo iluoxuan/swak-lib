@@ -2,11 +2,13 @@ package com.swak.lib.common.web;
 
 import com.swak.lib.client.entity.ApiRes;
 import com.swak.lib.client.exception.SwakBizException;
+import lombok.extern.slf4j.Slf4j;
 import org.hibernate.validator.internal.engine.path.PathImpl;
+import org.springframework.beans.TypeMismatchException;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.validation.BindException;
 import org.springframework.validation.FieldError;
-import org.springframework.validation.ObjectError;
 import org.springframework.web.HttpMediaTypeNotAcceptableException;
 import org.springframework.web.HttpMediaTypeNotSupportedException;
 import org.springframework.web.HttpRequestMethodNotSupportedException;
@@ -14,9 +16,9 @@ import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.MissingServletRequestParameterException;
 import org.springframework.web.bind.ServletRequestBindingException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.validation.ConstraintViolation;
 import javax.validation.ConstraintViolationException;
 import java.util.List;
@@ -28,7 +30,16 @@ import java.util.Set;
  * @author: ljq
  * @date: 2024/10/27
  */
-public abstract class AbstractWebExceptionHandler {
+@Slf4j
+public abstract class AbstractExceptionHandler {
+
+    @ExceptionHandler({Exception.class})
+    @ResponseBody
+    @ResponseStatus(HttpStatus.OK)
+    public ApiRes<Void> exception(Exception e) {
+        log.error("unKnowException ", e);
+        return ApiRes.sysError();
+    }
 
     /**
      * 业务异常
@@ -37,16 +48,24 @@ public abstract class AbstractWebExceptionHandler {
      * @return
      */
     @ExceptionHandler(SwakBizException.class)
+    @ResponseBody
     @ResponseStatus(HttpStatus.OK)
     public ApiRes<Void> bizException(SwakBizException e) {
-
+        log.error("bizException ", e);
         return ApiRes.error(e.getSwakError());
     }
 
-    @ExceptionHandler(BindException.class)
+    /**
+     * 参数通过注解等验证异常
+     *
+     * @param e
+     * @return
+     */
+    @ExceptionHandler({BindException.class, MethodArgumentNotValidException.class})
+    @ResponseBody
     @ResponseStatus(HttpStatus.OK)
     public ApiRes<Void> bindException(BindException e) {
-
+        log.error("bindException message={}", e.getMessage());
         StringBuilder result = new StringBuilder();
         List<FieldError> fieldErrorList = e.getBindingResult().getFieldErrors();
         result.append("参数错误[");
@@ -55,6 +74,7 @@ public abstract class AbstractWebExceptionHandler {
         }
         result.deleteCharAt(result.length() - 1);
         result.append("]");
+
         return ApiRes.argumentError(result.toString());
     }
 
@@ -62,9 +82,10 @@ public abstract class AbstractWebExceptionHandler {
      * java bean validate for 业务层 异常
      */
     @ExceptionHandler(ConstraintViolationException.class)
+    @ResponseBody
     @ResponseStatus(HttpStatus.OK)
     public ApiRes<Void> constraintViolationException(ConstraintViolationException e) {
-
+        log.error("constraintViolationException message={}", e.getMessage());
         StringBuilder result = new StringBuilder();
         result.append("参数错误[");
         Set<ConstraintViolation<?>> sets = e.getConstraintViolations();
@@ -84,9 +105,10 @@ public abstract class AbstractWebExceptionHandler {
      * 参数异常处理
      */
     @ExceptionHandler({MissingServletRequestParameterException.class, ServletRequestBindingException.class, HttpRequestMethodNotSupportedException.class})
+    @ResponseBody
     @ResponseStatus(HttpStatus.OK)
     ApiRes<Void> handleMissingServletRequestParameterException(Exception e) {
-
+        log.error("handleMissingServletRequestParameterException message={}", e.getMessage());
         return ApiRes.argumentError("请求参数异常");
     }
 
@@ -94,41 +116,41 @@ public abstract class AbstractWebExceptionHandler {
      * http meida erro
      */
     @ExceptionHandler({HttpMediaTypeNotSupportedException.class, HttpMediaTypeNotAcceptableException.class})
+    @ResponseBody
     @ResponseStatus(HttpStatus.OK)
     ApiRes<Void> handleHttpMediaTypeNotSupportedException(HttpMediaTypeNotSupportedException e) {
-
+        log.error("handleHttpMediaTypeNotSupportedException message={}", e.getMessage());
         return ApiRes.argumentError("请求类型contentType不支持");
     }
 
-    @ExceptionHandler(org.springframework.beans.TypeMismatchException.class)
+    @ExceptionHandler(TypeMismatchException.class)
+    @ResponseBody
     @ResponseStatus(HttpStatus.OK)
     ApiRes<Void> typeMismatchException(Exception e) {
-
-
+        log.error("typeMismatchException message={}", e.getMessage());
         return ApiRes.argumentError("请求类型typeMismatch异常");
     }
+
+    @ExceptionHandler(HttpMessageNotReadableException.class)
+    @ResponseBody
+    @ResponseStatus(HttpStatus.OK)
+    ApiRes<Void> messageConversionException(Exception e) {
+        log.error("messageConversionException message={}", e.getMessage());
+        return ApiRes.argumentError("请求体异常");
+    }
+
 
     /**
      * 断言 相关
      *
-     * @param e
      * @return
      */
     @ExceptionHandler({IllegalArgumentException.class, IllegalStateException.class})
+    @ResponseBody
     @ResponseStatus(HttpStatus.OK)
-    Object handleArgumentBizException(Exception e) {
-
+    ApiRes<Void> handleArgumentBizException(Exception e) {
+        log.error("handleArgumentBizException errorMsg={}", e.getMessage());
         return ApiRes.argumentError(e.getMessage());
     }
 
-
-    @ExceptionHandler(MethodArgumentNotValidException.class)
-    @ResponseStatus(HttpStatus.OK)
-    Object handleMethodArgumentNotValidException(MethodArgumentNotValidException e, HttpServletRequest request) {
-
-        List<ObjectError> errors = e.getBindingResult().getAllErrors();
-        StringBuffer errorMsg = new StringBuffer();
-        errors.stream().forEach(x -> errorMsg.append(x.getDefaultMessage()).append(";"));
-        return ApiRes.argumentError(errorMsg.toString());
-    }
 }
