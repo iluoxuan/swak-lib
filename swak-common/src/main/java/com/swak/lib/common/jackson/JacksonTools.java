@@ -33,10 +33,32 @@ public class JacksonTools {
 
     public static final Jackson2ObjectMapperBuilderCustomizer CUSTOMIZER = jackson2ObjectMapperBuilderCustomizer();
 
-    public static final ObjectMapper MAPPER = getObjectMapper();
+    public static final ObjectMapper MAPPER = ceateObjectMapper();
 
-    public static String toJson(Object obj) throws JsonProcessingException {
-        return MAPPER.writeValueAsString(obj);
+    public static String toJson(Object obj) {
+
+        try {
+            return MAPPER.writeValueAsString(obj);
+        } catch (Exception e) {
+            throw new SwakJsonException(e);
+        }
+    }
+
+    public static <T> T parseObject(String json, Class<T> clazz) {
+        try {
+            return MAPPER.readValue(json, clazz);
+        } catch (Exception e) {
+            throw new SwakJsonException(e);
+        }
+    }
+
+    /**
+     * 暂时提供
+     *
+     * @return
+     */
+    public static ObjectMapper objectMapper() {
+        return MAPPER;
     }
 
     /**
@@ -84,11 +106,12 @@ public class JacksonTools {
      *
      * @return ObjectMapper
      */
-    public static ObjectMapper getObjectMapper() {
+    private static ObjectMapper ceateObjectMapper() {
         Jackson2ObjectMapperBuilder builder = new Jackson2ObjectMapperBuilder();
         CUSTOMIZER.customize(builder);
         return builder.build();
     }
+
 
     public static void main(String[] args) throws JsonProcessingException {
         String jsonString = MAPPER.writeValueAsString(new User("test", new Date()));
