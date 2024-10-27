@@ -20,6 +20,7 @@ import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.util.Date;
 import java.util.TimeZone;
 
 /**
@@ -71,6 +72,10 @@ public class JacksonTools {
             builder.serializers(new LocalDateTimeSerializer(DateTools.dateTimeFormatter));
             builder.serializers(new LocalDateSerializer(DateTools.dateFormatter));
             builder.serializers(new LocalTimeSerializer(DateTools.timeFormatter));
+
+            // 新增date 的 转换
+            builder.deserializerByType(Date.class, new JacksonDateCovert.DateDeserializer());
+            builder.serializerByType(Date.class, new JacksonDateCovert.DateSerializer());
         };
     }
 
@@ -86,7 +91,12 @@ public class JacksonTools {
     }
 
     public static void main(String[] args) throws JsonProcessingException {
-        String jsonString = MAPPER.writeValueAsString(new User("test"));
+        String jsonString = MAPPER.writeValueAsString(new User("test", new Date()));
         System.out.println(jsonString);
+
+
+        jsonString = "{\"name\":\"test\",\"date\":\"2024-10-27\"}";
+        User user = MAPPER.readValue(jsonString, User.class);
+        System.out.println(user);
     }
 }

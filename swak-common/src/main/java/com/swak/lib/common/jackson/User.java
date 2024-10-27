@@ -4,6 +4,8 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.Date;
+
 /**
  * @author: ljq
  * @date: 2024/10/25
@@ -14,4 +16,6 @@ import lombok.NoArgsConstructor;
 public class User {
 
     private String name;
+
+    private Date date;
 }
