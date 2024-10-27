@@ -13,6 +13,8 @@ public enum SysBizError implements SwakError {
 
     SUCCESS("00000", "success"),
 
+    ARGUMENT_ERROR("00001", "argument error"),
+
 
     /**
      * 本系统异常：A开头

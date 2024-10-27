@@ -1,6 +1,7 @@
 package com.swak.lib.client.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.swak.lib.client.exception.SwakError;
 import com.swak.lib.client.exception.SysBizError;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
@@ -57,6 +58,28 @@ public class ApiRes<T> {
         apiResult.setMsg(SysBizError.SYS_ERROR.getMsg());
         return apiResult;
     }
+
+    public static ApiRes<Void> error(SwakError swakError) {
+        ApiRes<Void> apiResult = new ApiRes<>();
+        apiResult.setCode(swakError.getCode());
+        apiResult.setMsg(swakError.getMsg());
+        return apiResult;
+    }
+
+    public static ApiRes<Void> argumentError(String message) {
+        ApiRes<Void> apiResult = new ApiRes<>();
+        apiResult.setCode(SysBizError.ARGUMENT_ERROR.getCode());
+        apiResult.setMsg(Objects.isNull(message) ? SysBizError.ARGUMENT_ERROR.getMsg() : message);
+        return apiResult;
+    }
+
+    public static ApiRes<Void> error(SwakError swakError, String message) {
+        ApiRes<Void> apiResult = new ApiRes<>();
+        apiResult.setCode(swakError.getCode());
+        apiResult.setMsg(message);
+        return apiResult;
+    }
+
 
     public static ApiRes<PageRes<Void>> emptyPage() {
 
