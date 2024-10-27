@@ -1,5 +1,6 @@
 package com.swak.lib.client.exception;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 
 /**
@@ -8,12 +9,14 @@ import lombok.Getter;
  * @author: ljq
  * @date: 2024/9/22
  */
+@AllArgsConstructor
 @Getter
 public enum SysBizError implements SwakError {
 
     SUCCESS("00000", "success"),
 
-    ARGUMENT_ERROR("00001", "argument error"),
+    ARGUMENT_ERROR("10000", "argument error"),
+    AUTH_ERROR("11000", "auth error"),
 
 
     /**
@@ -38,9 +41,4 @@ public enum SysBizError implements SwakError {
     private String code;
 
     private String msg;
-
-    SysBizError(String code, String msg) {
-        this.code = code;
-        this.msg = msg;
-    }
 }
