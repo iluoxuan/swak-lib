@@ -11,7 +11,7 @@ import org.springframework.context.annotation.Configuration;
 public class WebConfig {
 
     @Bean
-    public DefaultAdviceControllerHandler defaultExceptionHandler() {
+    public DefaultAdviceControllerHandler defaultAdviceControllerHandler() {
         return new DefaultAdviceControllerHandler();
     }
 }

@@ -128,7 +128,7 @@ public abstract class AbstractExceptionHandler {
     @ResponseStatus(HttpStatus.OK)
     ApiRes<Void> typeMismatchException(Exception e) {
         log.error("typeMismatchException message={}", e.getMessage());
-        return ApiRes.argumentError("请求类型typeMismatch异常");
+        return ApiRes.argumentError("请求参数类型转换异常");
     }
 
     @ExceptionHandler(HttpMessageNotReadableException.class)
