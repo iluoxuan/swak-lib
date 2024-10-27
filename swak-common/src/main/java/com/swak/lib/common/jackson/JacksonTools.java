@@ -1,5 +1,6 @@
 package com.swak.lib.common.jackson;
 
+import cn.hutool.core.date.DatePattern;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
@@ -52,7 +53,7 @@ public class JacksonTools {
                     // 禁止将 java.util.Date、Calendar 序列化为数字(时间戳)
                     .featuresToDisable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS)
                     // 设置 java.util.Date, Calendar 序列化、反序列化的格式
-                    .dateFormat(new SimpleDateFormat(DateTools.DATETIME_PATTERN))
+                    .dateFormat(new SimpleDateFormat(DatePattern.NORM_DATETIME_PATTERN))
                     // 设置 java.util.Date, Calendar 序列化、反序列化的时区
                     .timeZone(TimeZone.getTimeZone(DateTools.timeZone));
 
