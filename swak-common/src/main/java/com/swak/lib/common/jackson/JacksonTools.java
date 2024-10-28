@@ -1,6 +1,7 @@
 package com.swak.lib.common.jackson;
 
 import cn.hutool.core.date.DatePattern;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
@@ -80,6 +81,8 @@ public class JacksonTools {
                     // 设置 java.util.Date, Calendar 序列化、反序列化的时区
                     .timeZone(TimeZone.getTimeZone(DateTools.timeZone));
 
+            // 为null的时候不输出
+            builder.serializationInclusion(JsonInclude.Include.NON_NULL);
             // Jackson 序列化 long类型为String，解决后端返回的Long类型在前端精度丢失的问题
             builder.serializerByType(BigInteger.class, ToStringSerializer.instance);
             builder.serializerByType(Long.class, ToStringSerializer.instance);
