@@ -55,6 +55,8 @@ public class BizLogger {
      */
     private String code;
 
+    private String appName;
+
 
     private BizLogger() {
     }
@@ -74,7 +76,7 @@ public class BizLogger {
         return this;
     }
 
-    public BizLogger error(Exception error) {
+    public BizLogger error(Throwable error) {
         if (Objects.nonNull(error)) {
             this.error = ExceptionUtil.stacktraceToString(error);
         }
