@@ -20,7 +20,6 @@ import javax.servlet.http.HttpServletRequest;
  * @date: 2024/10/29
  */
 @Aspect
-@Component
 public class LogTraceAspect {
 
 
