@@ -2,6 +2,7 @@ package com.swak.lib.common.aspect;
 
 import cn.hutool.core.util.StrUtil;
 import com.swak.lib.common.log.BizLogger;
+import com.swak.lib.common.tools.HttpTools;
 import lombok.extern.slf4j.Slf4j;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
@@ -56,6 +57,7 @@ public class LogTraceAspect {
         try {
 
             HttpParamLog httpParamLog = new HttpParamLog();
+            httpParamLog.setHeaders(HttpTools.headers(request));
 
             Parameter[] parameters = method.getParameters();
 

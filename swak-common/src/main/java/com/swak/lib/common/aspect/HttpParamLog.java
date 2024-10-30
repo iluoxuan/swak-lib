@@ -17,6 +17,8 @@ public class HttpParamLog {
 
     private Map<String, Object> param;
 
+    private Map<String, String> headers;
+
     public void addParam(String key, Object value) {
 
         if (Objects.isNull(param)) {
