@@ -83,6 +83,11 @@ public class BizLogger {
         return this;
     }
 
+    public BizLogger error(String error) {
+        this.error = error;
+        return this;
+    }
+
     public BizLogger traceId(String traceId) {
         this.traceId = traceId;
         return this;

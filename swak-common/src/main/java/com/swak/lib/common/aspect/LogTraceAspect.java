@@ -78,7 +78,8 @@ public class LogTraceAspect {
             logger.resMsg(result);
             return result;
         } catch (Throwable e) {
-            logger.error(e);
+            // 不记录详细日志，通用拦截中会打印
+            logger.error(e.getMessage());
             throw e;
         } finally {
             logger.log();
