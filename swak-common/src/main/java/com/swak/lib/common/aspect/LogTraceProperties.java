@@ -6,6 +6,7 @@ import org.springframework.context.annotation.Configuration;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.*;
+import java.util.stream.Collectors;
 
 import static org.springframework.http.HttpHeaders.AUTHORIZATION;
 
@@ -23,6 +24,15 @@ public class LogTraceProperties {
      */
     private Set<String> headers = new HashSet<>();
 
+    /**
+     * http的header头 大小写不敏感 【服务器不同】
+     *
+     * @param headers
+     */
+    public void setHeaders(Set<String> headers) {
+        this.headers = headers.stream().map(String::toLowerCase).collect(Collectors.toSet());
+    }
+
     public Map<String, String> filterHeaders(HttpServletRequest request) {
 
         Map<String, String> result = new HashMap<>();
@@ -30,7 +40,7 @@ public class LogTraceProperties {
         while (headerNames.hasMoreElements()) {
             String headerName = headerNames.nextElement();
             String headerValue = request.getHeader(headerName);
-            if (headers.contains(headerName) || AUTHORIZATION.equals(headerName)) {
+            if (headers.contains(headerName.toLowerCase()) || AUTHORIZATION.equalsIgnoreCase(headerName)) {
                 result.put(headerName, headerValue);
             }
         }
