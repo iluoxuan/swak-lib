@@ -2,7 +2,7 @@ package com.swak.lib.common.aspect;
 
 import cn.hutool.core.util.StrUtil;
 import com.swak.lib.common.log.BizLogger;
-import com.swak.lib.common.tools.HttpTools;
+import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
@@ -17,7 +17,9 @@ import org.springframework.web.context.request.ServletRequestAttributes;
 import javax.servlet.http.HttpServletRequest;
 import java.lang.reflect.Method;
 import java.lang.reflect.Parameter;
+import java.util.Map;
 import java.util.Objects;
+import java.util.Optional;
 
 /**
  * 日志切面
@@ -25,9 +27,12 @@ import java.util.Objects;
  * @author: ljq
  * @date: 2024/10/29
  */
+@AllArgsConstructor
 @Slf4j
 @Aspect
 public class LogTraceAspect {
+
+    private final LogTraceProperties logTraceProperties;
 
 
     /**
@@ -57,8 +62,10 @@ public class LogTraceAspect {
         try {
 
             HttpParamLog httpParamLog = new HttpParamLog();
-            httpParamLog.setHeaders(HttpTools.headers(request));
-
+            Optional<Map<String, String>> headers = logTraceProperties.filterHeaders(request);
+            if (headers.isPresent()) {
+                httpParamLog.setHeaders(headers.get());
+            }
             Parameter[] parameters = method.getParameters();
 
             for (int i = 0; i < args.length; i++) {

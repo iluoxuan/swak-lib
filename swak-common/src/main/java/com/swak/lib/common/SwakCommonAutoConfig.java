@@ -1,9 +1,11 @@
 package com.swak.lib.common;
 
 import com.swak.lib.common.aspect.AspectConfig;
+import com.swak.lib.common.aspect.LogTraceProperties;
 import com.swak.lib.common.jackson.JacksonConfig;
 import com.swak.lib.common.spring.SpringBeanFactory;
 import com.swak.lib.common.web.WebConfig;
+import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
