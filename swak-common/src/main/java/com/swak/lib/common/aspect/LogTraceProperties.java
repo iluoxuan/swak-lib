@@ -23,7 +23,7 @@ public class LogTraceProperties {
      */
     private Set<String> headers = new HashSet<>();
 
-    public Optional<Map<String, String>> filterHeaders(HttpServletRequest request) {
+    public Map<String, String> filterHeaders(HttpServletRequest request) {
 
         Map<String, String> result = new HashMap<>();
         Enumeration<String> headerNames = request.getHeaderNames();
@@ -34,7 +34,7 @@ public class LogTraceProperties {
                 result.put(headerName, headerValue);
             }
         }
-        return Optional.of(result);
+        return result;
 
     }
 

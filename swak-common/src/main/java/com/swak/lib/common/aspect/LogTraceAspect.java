@@ -1,5 +1,6 @@
 package com.swak.lib.common.aspect;
 
+import cn.hutool.core.collection.CollectionUtil;
 import cn.hutool.core.util.StrUtil;
 import com.swak.lib.common.log.BizLogger;
 import lombok.AllArgsConstructor;
@@ -19,7 +20,6 @@ import java.lang.reflect.Method;
 import java.lang.reflect.Parameter;
 import java.util.Map;
 import java.util.Objects;
-import java.util.Optional;
 
 /**
  * 日志切面
@@ -62,9 +62,9 @@ public class LogTraceAspect {
         try {
 
             HttpParamLog httpParamLog = new HttpParamLog();
-            Optional<Map<String, String>> headers = logTraceProperties.filterHeaders(request);
-            if (headers.isPresent()) {
-                httpParamLog.setHeaders(headers.get());
+            Map<String, String> headers = logTraceProperties.filterHeaders(request);
+            if (CollectionUtil.isNotEmpty(headers)) {
+                httpParamLog.setHeaders(headers);
             }
             Parameter[] parameters = method.getParameters();
 
