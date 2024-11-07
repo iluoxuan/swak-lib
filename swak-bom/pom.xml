@@ -30,6 +30,7 @@
         <mysql.version>8.0.33</mysql.version>
         <velocity-engine>2.4</velocity-engine>
         <hutool.version>5.8.16</hutool.version>
+        <skywalking>9.3.0</skywalking>
 
         <flatten-maven-plugin.version>1.2.7</flatten-maven-plugin.version>
 
@@ -42,6 +43,13 @@
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-dependencies</artifactId>
                 <version>${spring-boot.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+            <dependency>
+                <groupId>org.springframework.cloud</groupId>
+                <artifactId>spring-cloud-dependencies</artifactId>
+                <version>2021.0.9</version>
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
@@ -114,6 +122,14 @@
                 <artifactId>velocity-engine-core</artifactId>
                 <version>${velocity-engine}</version>
             </dependency>
+
+            <!-- https://mvnrepository.com/artifact/org.apache.skywalking/apm-toolkit-trace -->
+            <dependency>
+                <groupId>org.apache.skywalking</groupId>
+                <artifactId>apm-toolkit-trace</artifactId>
+                <version>9.3.0</version>
+            </dependency>
+
 
 
         </dependencies>
