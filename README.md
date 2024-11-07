@@ -44,4 +44,11 @@
 * 没有注册中心服务发现，全经过网关调用http服务，可能公司就一个网关
 
 ## 远程调用
+* feign
+* dubbo
+
+## 追踪
+
+[skywalking](doc/skywalking测试.md)
+
 
