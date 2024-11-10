@@ -111,7 +111,10 @@ public class BizLogger {
         return this;
     }
 
-    public void log() {
+    /**
+     * 不让外部访问
+     */
+    void log() {
 
         // 判断traceId是否为空
         if (StrUtil.isBlank(traceId)) {

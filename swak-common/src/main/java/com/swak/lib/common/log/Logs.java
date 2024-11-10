@@ -4,6 +4,8 @@ import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
 import org.slf4j.helpers.MessageFormatter;
 
+import java.util.Objects;
+
 /**
  * 静态日志类
  *
@@ -31,10 +33,17 @@ public class Logs {
 
     public static void error(String logType, Exception e, String msg, Object... args) {
 
-        BizLogger.build(logType).appName(appName)
+        BizLogger.build(logType)
+                .appName(appName)
                 .reqMsg(MessageFormatter.arrayFormat(msg, args).getMessage())
                 .error(e)
                 .log();
+    }
+
+    public static void log(BizLogger logger) {
+        if (Objects.nonNull(logger)) {
+            logger.appName(appName).log();
+        }
     }
 
     public static void main(String[] args) {
@@ -42,4 +51,6 @@ public class Logs {
 
         error("testLogError", new NullPointerException());
     }
+
+
 }

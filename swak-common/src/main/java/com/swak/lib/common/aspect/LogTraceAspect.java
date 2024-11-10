@@ -3,6 +3,7 @@ package com.swak.lib.common.aspect;
 import cn.hutool.core.collection.CollectionUtil;
 import cn.hutool.core.util.StrUtil;
 import com.swak.lib.common.log.BizLogger;
+import com.swak.lib.common.log.Logs;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.aspectj.lang.ProceedingJoinPoint;
@@ -91,7 +92,7 @@ public class LogTraceAspect {
             logger.error(e.getMessage());
             throw e;
         } finally {
-            logger.log();
+            Logs.log(logger);
         }
     }
 }
