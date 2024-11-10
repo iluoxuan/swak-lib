@@ -2,9 +2,11 @@ package com.swak.lib.common.log;
 
 import cn.hutool.core.exceptions.ExceptionUtil;
 import cn.hutool.core.util.IdUtil;
+import cn.hutool.core.util.StrUtil;
 import com.swak.lib.common.jackson.JacksonTools;
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.skywalking.apm.toolkit.trace.TraceContext;
 
 import java.util.Objects;
 
@@ -71,6 +73,12 @@ public class BizLogger {
         return this;
     }
 
+    public BizLogger appName(String appName) {
+        this.appName = appName;
+        return this;
+    }
+
+
     public BizLogger resMsg(Object resMsg) {
         this.resMsg = resMsg;
         return this;
@@ -104,6 +112,12 @@ public class BizLogger {
     }
 
     public void log() {
+
+        // 判断traceId是否为空
+        if (StrUtil.isBlank(traceId)) {
+            // 从skywalking上下文中获取traceId，没获取到就是空的
+            traceId = TraceContext.traceId();
+        }
 
         this.endTm = System.currentTimeMillis();
         this.duration = this.endTm - this.startTm;

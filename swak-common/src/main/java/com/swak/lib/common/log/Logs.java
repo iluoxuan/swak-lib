@@ -1,5 +1,6 @@
 package com.swak.lib.common.log;
 
+import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
 import org.slf4j.helpers.MessageFormatter;
 
@@ -12,19 +13,28 @@ import org.slf4j.helpers.MessageFormatter;
 @Slf4j
 public class Logs {
 
+    @Setter
+    private static String appName;
+
+    @Setter
+    private static boolean grey;
+
     public static void info(String logType, String msg, Object... args) {
 
-        BizLogger.build(logType).reqMsg(MessageFormatter.arrayFormat(msg, args).getMessage()).log();
+        BizLogger.build(logType).appName(appName).reqMsg(MessageFormatter.arrayFormat(msg, args).getMessage()).log();
     }
 
     public static void error(String logType, Exception e) {
 
-        BizLogger.build(logType).error(e).log();
+        BizLogger.build(logType).appName(appName).error(e).log();
     }
 
     public static void error(String logType, Exception e, String msg, Object... args) {
 
-        BizLogger.build(logType).reqMsg(MessageFormatter.arrayFormat(msg, args).getMessage()).error(e).log();
+        BizLogger.build(logType).appName(appName)
+                .reqMsg(MessageFormatter.arrayFormat(msg, args).getMessage())
+                .error(e)
+                .log();
     }
 
     public static void main(String[] args) {
