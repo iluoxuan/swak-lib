@@ -1,14 +1,13 @@
 package com.swak.lib.common.aspect;
 
+import com.swak.lib.common.constants.HttpHeaderKey;
+import com.swak.lib.common.tools.CollectionTools;
 import lombok.Getter;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Configuration;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.*;
-import java.util.stream.Collectors;
-
-import static org.springframework.http.HttpHeaders.AUTHORIZATION;
 
 /**
  * @author: ljq
@@ -30,17 +29,18 @@ public class LogTraceProperties {
      * @param headers
      */
     public void setHeaders(Set<String> headers) {
-        this.headers = headers.stream().map(String::toLowerCase).collect(Collectors.toSet());
+        this.headers = CollectionTools.newToLowerCaseHashSet(headers);
     }
 
     public Map<String, String> filterHeaders(HttpServletRequest request) {
 
         Map<String, String> result = new HashMap<>();
         Enumeration<String> headerNames = request.getHeaderNames();
+
         while (headerNames.hasMoreElements()) {
             String headerName = headerNames.nextElement();
             String headerValue = request.getHeader(headerName);
-            if (headers.contains(headerName.toLowerCase()) || AUTHORIZATION.equalsIgnoreCase(headerName)) {
+            if (headers.contains(headerName.toLowerCase()) || HttpHeaderKey.DEFAULT_NEED_HEADERS.contains(headerName)) {
                 result.put(headerName, headerValue);
             }
         }

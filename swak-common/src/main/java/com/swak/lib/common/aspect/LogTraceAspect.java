@@ -4,6 +4,7 @@ import cn.hutool.core.collection.CollectionUtil;
 import cn.hutool.core.util.StrUtil;
 import com.swak.lib.common.log.BizLogger;
 import com.swak.lib.common.log.Logs;
+import com.swak.lib.common.trace.TraceTools;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.aspectj.lang.ProceedingJoinPoint;
@@ -59,7 +60,9 @@ public class LogTraceAspect {
         Object[] args = joinPoint.getArgs();
         // 获取HttpServletRequest对象
         HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.currentRequestAttributes()).getRequest();
-        BizLogger logger = BizLogger.build(method.getName()).url(request.getRequestURI());
+        BizLogger logger = BizLogger.build(method.getName())
+                .url(request.getRequestURI())
+                .traceId(TraceTools.getWebTraceId(request));
         try {
 
             HttpParamLog httpParamLog = new HttpParamLog();
