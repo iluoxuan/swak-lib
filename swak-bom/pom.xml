@@ -34,6 +34,7 @@
         <ognl.version>3.4.3</ognl.version>
 
         <flatten-maven-plugin.version>1.2.7</flatten-maven-plugin.version>
+        <weixin-java-open>4.6.0</weixin-java-open>
 
     </properties>
 
@@ -134,6 +135,11 @@
                 <groupId>ognl</groupId>
                 <artifactId>ognl</artifactId>
                 <version>${ognl.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.github.binarywang</groupId>
+                <artifactId>weixin-java-open</artifactId>
+                <version>${weixin-java-open}</version>
             </dependency>
 
         </dependencies>

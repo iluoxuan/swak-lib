@@ -24,6 +24,12 @@ public class Logs {
     public static void info(String logType, String msg, Object... args) {
 
         BizLogger.build(logType).appName(appName).reqMsg(MessageFormatter.arrayFormat(msg, args).getMessage()).log();
+
+    }
+
+    public static void info(String logType, Object msg) {
+
+        BizLogger.build(logType).appName(appName).reqMsg(msg).log();
     }
 
     public static void error(String logType, Exception e) {
@@ -36,6 +42,15 @@ public class Logs {
         BizLogger.build(logType)
                 .appName(appName)
                 .reqMsg(MessageFormatter.arrayFormat(msg, args).getMessage())
+                .error(e)
+                .log();
+    }
+
+    public static void error(String logType, Exception e, Object msg) {
+
+        BizLogger.build(logType)
+                .appName(appName)
+                .reqMsg(msg)
                 .error(e)
                 .log();
     }

@@ -1,10 +1,5 @@
 package com.swak.lib.common.test.ognl;
 
-import com.swak.lib.common.test.entiy.UserTest;
-import com.swak.lib.common.tools.CollectionTools;
-import ognl.Ognl;
-import ognl.OgnlContext;
-
 /**
  * @author: ljq
  * @date: 2024/11/10
@@ -12,19 +7,28 @@ import ognl.OgnlContext;
 public class OgnlTest {
 
 
+    public static boolean isHuiWen(int input) {
+        if (input < 0) {
+            return false;
+        }
+        String inputStr = String.valueOf(input);
+        int left = 0;
+        int right = inputStr.length() - 1;
+        while (left < right) {
+            if (inputStr.charAt(left) != inputStr.charAt(right)) {
+                return false;
+            }
+            left++;
+            right--;
+        }
+        return true;
+    }
+
     public static void main(String[] args) throws Exception {
 
-        UserTest userTest = new UserTest();
-        userTest.setName("ljqtest");
-        userTest.setSub(CollectionTools.newArrayList(userTest));
-        OgnlContext context = Ognl.createDefaultContext(userTest);
-        context.put("user", userTest);
-        Object expression = Ognl.parseExpression("#user.name");
-
-        Object result = Ognl.getValue(expression, context, userTest);
-        System.out.println(result);
-
-
+        System.out.println(isHuiWen(11211));
 
     }
+
+
 }
