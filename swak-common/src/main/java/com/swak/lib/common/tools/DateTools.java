@@ -1,6 +1,7 @@
 package com.swak.lib.common.tools;
 
 import cn.hutool.core.date.DatePattern;
+import cn.hutool.core.date.DateTime;
 import cn.hutool.core.date.DateUtil;
 
 import java.time.format.DateTimeFormatter;
@@ -18,4 +19,13 @@ public class DateTools extends DateUtil {
     public static DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern(DatePattern.NORM_DATE_PATTERN);
 
     public static DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern(DatePattern.NORM_TIME_PATTERN);
+
+
+    public static DateTime parseWithEmpty(CharSequence dateStr, String format) {
+        if (StringTools.isBlank(dateStr)) {
+            return null;
+        }
+        return new DateTime(dateStr, format);
+    }
+
 }
