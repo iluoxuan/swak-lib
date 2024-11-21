@@ -1,6 +1,7 @@
 package com.swak.lib.common.tools;
 
 import cn.hutool.core.date.DatePattern;
+import cn.hutool.core.date.DateUtil;
 
 import java.time.format.DateTimeFormatter;
 
@@ -8,7 +9,7 @@ import java.time.format.DateTimeFormatter;
  * @author: ljq
  * @date: 2024/9/22
  */
-public class DateTools {
+public class DateTools extends DateUtil {
 
     public static final String timeZone = "GMT+8";
 
