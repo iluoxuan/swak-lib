@@ -20,6 +20,10 @@ public class BigNumber extends Number implements Comparable<BigNumber> {
 
     public static final BigNumber ONE = BigNumber.of(1);
 
+    public static final int scale4 = 4;
+
+    public static final int scale2 = 2;
+
     private BigDecimal value;
 
     private BigNumber(BigDecimal value) {
@@ -85,17 +89,22 @@ public class BigNumber extends Number implements Comparable<BigNumber> {
     }
 
     public BigNumber divScale2(String number) {
-        BigDecimal newValue = NumberUtil.div(value, NumberUtil.toBigDecimal(number), 2, RoundingMode.HALF_UP);
+        BigDecimal newValue = NumberUtil.div(value, NumberUtil.toBigDecimal(number), scale2, RoundingMode.HALF_UP);
         return BigNumber.of(newValue);
     }
 
     public BigNumber divScale2(Number number) {
-        BigDecimal newValue = NumberUtil.div(value, BigNumber.toBigDecimal(number), 2, RoundingMode.HALF_UP);
+        BigDecimal newValue = NumberUtil.div(value, BigNumber.toBigDecimal(number), scale2, RoundingMode.HALF_UP);
         return BigNumber.of(newValue);
     }
 
     public BigNumber round2HalfUp() {
-        BigDecimal newValue = this.value.setScale(2, BigDecimal.ROUND_HALF_UP);
+        BigDecimal newValue = this.value.setScale(scale2, BigDecimal.ROUND_HALF_UP);
+        return BigNumber.of(newValue);
+    }
+
+    public BigNumber roundHalfUp(int scale) {
+        BigDecimal newValue = this.value.setScale(scale, BigDecimal.ROUND_HALF_UP);
         return BigNumber.of(newValue);
     }
 
