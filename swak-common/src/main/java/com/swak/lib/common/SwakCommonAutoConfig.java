@@ -1,6 +1,7 @@
 package com.swak.lib.common;
 
 import com.swak.lib.common.aspect.AspectConfig;
+import com.swak.lib.common.httpclient.HttpClientConfig;
 import com.swak.lib.common.jackson.JacksonConfig;
 import com.swak.lib.common.log.BizLogConfig;
 import com.swak.lib.common.spring.SpringBeanFactory;
@@ -14,7 +15,8 @@ import org.springframework.context.annotation.Import;
  * @author: ljq
  * @date: 2024/10/25
  */
-@Import({JacksonConfig.class, WebConfig.class, AspectConfig.class, BizLogConfig.class})
+@Import({JacksonConfig.class, WebConfig.class, AspectConfig.class,
+        BizLogConfig.class, HttpClientConfig.class})
 @Configuration
 public class SwakCommonAutoConfig {
 

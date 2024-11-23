@@ -1,6 +1,7 @@
 package com.swak.lib.common.spring;
 
 import com.swak.lib.common.tools.AssertTools;
+import org.apache.http.impl.client.CloseableHttpClient;
 import org.springframework.beans.BeansException;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
@@ -37,8 +38,17 @@ public class SpringBeanFactory implements ApplicationContextAware, EnvironmentAw
         return (T) applicationContext.getBean(name);
     }
 
+    public static <T> T getBean(String name, Class<T> requiredType) {
+        AssertTools.notNull(applicationContext, "getBean Application context not initialized");
+        return (T) applicationContext.getBean(name, requiredType);
+    }
+
     public static String getProperty(String key) {
         AssertTools.notNull(environment, "getProperty environment not initialized");
         return environment.getProperty(key);
+    }
+
+    public static CloseableHttpClient swakHttpClient() {
+        return SpringBeanFactory.getBean("swakHttpClient", CloseableHttpClient.class);
     }
 }

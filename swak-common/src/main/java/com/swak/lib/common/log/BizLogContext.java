@@ -9,7 +9,7 @@ import lombok.Getter;
 @Getter
 public class BizLogContext {
 
-    private final static ThreadLocal<BizLogContext> instance = ThreadLocal.withInitial(() -> new BizLogContext());
+    private final static ThreadLocal<BizLogContext> instance = ThreadLocal.withInitial(BizLogContext::new);
 
     private String traceId;
 

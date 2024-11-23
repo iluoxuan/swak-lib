@@ -36,6 +36,7 @@
         <flatten-maven-plugin.version>1.2.7</flatten-maven-plugin.version>
         <weixin-java-open>4.6.0</weixin-java-open>
         <jetcache.version>2.7.7</jetcache.version>
+        <httpclient>4.5.14</httpclient>
 
     </properties>
 
@@ -148,6 +149,11 @@
                 <groupId>com.github.binarywang</groupId>
                 <artifactId>weixin-java-open</artifactId>
                 <version>${weixin-java-open}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.httpcomponents</groupId>
+                <artifactId>httpclient</artifactId>
+                <version>${httpclient}</version>
             </dependency>
 
         </dependencies>
