@@ -47,8 +47,13 @@ public class SwakHttpClient {
 
     private boolean isJsonType = false;
 
-    public static SwakHttpClient create() {
+    private HttpReqName httpReqName;
+
+    public static SwakHttpClient create(HttpReqName name) {
+
         SwakHttpClient client = new SwakHttpClient();
+        client.httpReqName = name;
+        Assert.notNull(name, "http 名称不能为空 swak.http-client.name 配置");
         client.httpClient = HttpClientConfig.getSwakHttpClient();
         Assert.notNull(client.httpClient, "httpClient 不能为空");
         client.httpclientProperties = HttpClientConfig.httpclientProperties();
@@ -135,10 +140,11 @@ public class SwakHttpClient {
     private String executeRequest(CloseableHttpClient httpClient, HttpRequestBase request) throws Exception {
 
         // 设置请求配置 - 请求路由数据先不告了
+        HttpclientProperties.Param param = httpclientProperties.getParam(httpReqName);
         RequestConfig requestConfig = RequestConfig.custom()
-                .setConnectTimeout(httpclientProperties.getConnectTimeout())
-                .setSocketTimeout(httpclientProperties.getSocketTimeout())
-                .setConnectionRequestTimeout(httpclientProperties.getConnectionRequestTimeout())
+                .setConnectTimeout(param.getConnectTimeout())
+                .setSocketTimeout(param.getSocketTimeout())
+                .setConnectionRequestTimeout(param.getConnectionRequestTimeout())
                 .build();
         request.setConfig(requestConfig);
 
