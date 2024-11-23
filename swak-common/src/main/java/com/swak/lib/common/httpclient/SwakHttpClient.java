@@ -3,10 +3,10 @@ package com.swak.lib.common.httpclient;
 import cn.hutool.core.lang.Assert;
 import cn.hutool.core.map.MapUtil;
 import cn.hutool.core.util.StrUtil;
-import com.swak.lib.common.spring.SpringBeanFactory;
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpHeaders;
 import org.apache.http.HttpStatus;
+import org.apache.http.client.config.RequestConfig;
 import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpGet;
@@ -43,16 +43,16 @@ public class SwakHttpClient {
 
     private CloseableHttpClient httpClient;
 
+    private HttpclientProperties httpclientProperties;
+
     private boolean isJsonType = false;
 
     public static SwakHttpClient create() {
-        return create(SpringBeanFactory.swakHttpClient());
-    }
-
-    public static SwakHttpClient create(CloseableHttpClient httpClient) {
-        Assert.notNull(httpClient, "httpClient 不能为空");
         SwakHttpClient client = new SwakHttpClient();
-        client.httpClient = httpClient;
+        client.httpClient = HttpClientConfig.getSwakHttpClient();
+        Assert.notNull(client.httpClient, "httpClient 不能为空");
+        client.httpclientProperties = HttpClientConfig.httpclientProperties();
+        Assert.notNull(client.httpclientProperties, "httpclientProperties 不能为空");
         return client;
     }
 
@@ -133,6 +133,15 @@ public class SwakHttpClient {
 
 
     private String executeRequest(CloseableHttpClient httpClient, HttpRequestBase request) throws Exception {
+
+        // 设置请求配置 - 请求路由数据先不告了
+        RequestConfig requestConfig = RequestConfig.custom()
+                .setConnectTimeout(httpclientProperties.getConnectTimeout())
+                .setSocketTimeout(httpclientProperties.getSocketTimeout())
+                .setConnectionRequestTimeout(httpclientProperties.getConnectionRequestTimeout())
+                .build();
+        request.setConfig(requestConfig);
+
         try (CloseableHttpResponse response = httpClient.execute(request)) {
             int statusCode = response.getStatusLine().getStatusCode();
             HttpEntity responseEntity = response.getEntity();

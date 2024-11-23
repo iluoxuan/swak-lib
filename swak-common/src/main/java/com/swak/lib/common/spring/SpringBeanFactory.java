@@ -47,8 +47,4 @@ public class SpringBeanFactory implements ApplicationContextAware, EnvironmentAw
         AssertTools.notNull(environment, "getProperty environment not initialized");
         return environment.getProperty(key);
     }
-
-    public static CloseableHttpClient swakHttpClient() {
-        return SpringBeanFactory.getBean("swakHttpClient", CloseableHttpClient.class);
-    }
 }

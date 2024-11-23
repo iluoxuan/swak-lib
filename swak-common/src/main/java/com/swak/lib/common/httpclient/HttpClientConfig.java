@@ -1,5 +1,6 @@
 package com.swak.lib.common.httpclient;
 
+import com.swak.lib.common.spring.SpringBeanFactory;
 import lombok.RequiredArgsConstructor;
 import org.apache.http.client.config.RequestConfig;
 import org.apache.http.impl.client.CloseableHttpClient;
@@ -22,7 +23,9 @@ public class HttpClientConfig {
 
     private final HttpclientProperties httpclientProperties;
 
-    @Bean("swakHttpClient")
+    private final static String swakHttpClientBeanName = "swakHttpClient";
+
+    @Bean(swakHttpClientBeanName)
     public CloseableHttpClient swakHttpClient() {
 
         // 创建连接池管理器
@@ -40,5 +43,13 @@ public class HttpClientConfig {
                         .build())
                 .evictIdleConnections(httpclientProperties.getMaxIdleTime(), TimeUnit.SECONDS)
                 .build();
+    }
+
+    public static CloseableHttpClient getSwakHttpClient() {
+        return SpringBeanFactory.getBean(swakHttpClientBeanName, CloseableHttpClient.class);
+    }
+
+    public static HttpclientProperties httpclientProperties() {
+        return SpringBeanFactory.getBean(HttpclientProperties.class);
     }
 }

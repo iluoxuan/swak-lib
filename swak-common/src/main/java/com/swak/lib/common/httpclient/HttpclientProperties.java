@@ -25,7 +25,7 @@ public class HttpclientProperties {
     private Integer socketTimeout = 30 * 1000;
     private int maxIdleTime = 30;
 
-    private Map<String, Param> param = new HashMap<>();
+    private Map<String, Param> config = new HashMap<>();
 
     @Data
     public class Param {
@@ -44,7 +44,7 @@ public class HttpclientProperties {
     }
 
     public Param getParam(HttpReqName name) {
-        return param.get(name.name());
+        return config.get(name.name());
     }
 
 
