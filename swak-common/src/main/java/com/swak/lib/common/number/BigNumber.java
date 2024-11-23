@@ -14,7 +14,7 @@ import java.math.RoundingMode;
  * @date: 2024/11/23
  */
 @Getter
-public class BigNumber {
+public class BigNumber extends Number {
 
     public static final BigNumber ZERO = BigNumber.of(0);
 
@@ -27,8 +27,16 @@ public class BigNumber {
     }
 
     public static BigNumber of(Number value) {
-        BigNumber bigNumber = new BigNumber(NumberUtil.toBigDecimal(value));
+        BigNumber bigNumber = new BigNumber(BigNumber.toBigDecimal(value));
         return bigNumber;
+    }
+
+    private static BigDecimal toBigDecimal(Number value) {
+        if (value instanceof BigNumber) {
+            BigNumber bigNumber = (BigNumber) value;
+            return bigNumber.getValue();
+        }
+        return NumberUtil.toBigDecimal(value);
     }
 
     public static BigNumber of(String value) {
@@ -37,58 +45,58 @@ public class BigNumber {
     }
 
     public BigNumber add(Number number) {
-        value = NumberUtil.add(value, number);
-        return this;
+        BigDecimal newValue = NumberUtil.add(value, BigNumber.toBigDecimal(number));
+        return BigNumber.of(newValue);
     }
 
     public BigNumber sub(Number number) {
-        value = NumberUtil.sub(value, number);
-        return this;
+        BigDecimal newValue = NumberUtil.sub(value, BigNumber.toBigDecimal(number));
+        return BigNumber.of(newValue);
     }
 
     public BigNumber sub(String number) {
-        value = NumberUtil.sub(value, NumberUtil.toBigDecimal(number));
-        return this;
+        BigDecimal newValue = NumberUtil.sub(value, NumberUtil.toBigDecimal(number));
+        return BigNumber.of(newValue);
     }
 
     public BigNumber add(String number) {
-        value = NumberUtil.add(value, NumberUtil.toBigDecimal(number));
-        return this;
+        BigDecimal newValue = NumberUtil.add(value, NumberUtil.toBigDecimal(number));
+        return BigNumber.of(newValue);
     }
 
-    public BigNumber mul(Number... numbers) {
-        value = NumberUtil.mul(value, NumberUtil.mul(numbers));
-        return this;
+    public BigNumber mul(Number number) {
+        BigDecimal newValue = NumberUtil.mul(value, BigNumber.toBigDecimal(number));
+        return BigNumber.of(newValue);
     }
 
     public BigNumber mul(String... numbers) {
-        value = NumberUtil.mul(value, NumberUtil.mul(numbers));
-        return this;
+        BigDecimal newValue = NumberUtil.mul(value, NumberUtil.mul(numbers));
+        return BigNumber.of(newValue);
     }
 
     public BigNumber div(Number number, int scale) {
-        value = NumberUtil.div(value, number, scale, RoundingMode.HALF_UP);
-        return this;
+        BigDecimal newValue = NumberUtil.div(value, BigNumber.toBigDecimal(number), scale, RoundingMode.HALF_UP);
+        return BigNumber.of(newValue);
     }
 
     public BigNumber div(String number, int scale) {
-        value = NumberUtil.div(value, NumberUtil.toBigDecimal(number), scale, RoundingMode.HALF_UP);
-        return this;
+        BigDecimal newValue = NumberUtil.div(value, NumberUtil.toBigDecimal(number), scale, RoundingMode.HALF_UP);
+        return BigNumber.of(newValue);
     }
 
     public BigNumber divScale2(String number) {
-        value = NumberUtil.div(value, NumberUtil.toBigDecimal(number), 2, RoundingMode.HALF_UP);
-        return this;
+        BigDecimal newValue = NumberUtil.div(value, NumberUtil.toBigDecimal(number), 2, RoundingMode.HALF_UP);
+        return BigNumber.of(newValue);
     }
 
     public BigNumber divScale2(Number number) {
-        value = NumberUtil.div(value, number, 2, RoundingMode.HALF_UP);
-        return this;
+        BigDecimal newValue = NumberUtil.div(value, BigNumber.toBigDecimal(number), 2, RoundingMode.HALF_UP);
+        return BigNumber.of(newValue);
     }
 
     public BigNumber round2HalfUp() {
-        value.setScale(2, BigDecimal.ROUND_HALF_UP);
-        return this;
+        BigDecimal newValue = this.value.setScale(2, BigDecimal.ROUND_HALF_UP);
+        return BigNumber.of(newValue);
     }
 
 
@@ -99,8 +107,37 @@ public class BigNumber {
         double currentPrice = 100;
         int minShares = 100;
 
-        BigNumber bigNumber = BigNumber.of(totalCost).add(currentPrice).mul(minShares).round2HalfUp();
+        BigNumber bigNumber = BigNumber.of(totalCost).add(currentPrice).mul(currentPrice).round2HalfUp();
         System.out.println(bigNumber.getValue().toString());
 
+
+        BigDecimal a = new BigDecimal(100);
+        BigDecimal c = a.divide(new BigDecimal(3), 2, RoundingMode.HALF_UP);
+        System.out.println(a);
+        System.out.println(c);
+    }
+
+    @Override
+    public int intValue() {
+        return value.intValue();
+    }
+
+    @Override
+    public long longValue() {
+        return value.longValue();
+    }
+
+    @Override
+    public float floatValue() {
+        return value.floatValue();
+    }
+
+    @Override
+    public double doubleValue() {
+        return value.doubleValue();
+    }
+
+    public String toString() {
+        return value.toString();
     }
 }

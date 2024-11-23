@@ -22,4 +22,13 @@ public class SwakBizException extends RuntimeException {
         super(swakError.getMsg(), cause);
         this.swakError = swakError;
     }
+
+    public SwakBizException(SwakError swakError, String msg) {
+        super(msg);
+        this.swakError = swakError;
+    }
+
+    public static SwakBizException argumentError(String msg) {
+        return new SwakBizException(SysBizError.ARGUMENT_ERROR, msg);
+    }
 }
