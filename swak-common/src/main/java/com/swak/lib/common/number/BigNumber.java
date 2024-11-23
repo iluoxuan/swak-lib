@@ -66,23 +66,23 @@ public class BigNumber {
         return this;
     }
 
-    public BigNumber div(Number v1, Number v2, int scale) {
-        value = NumberUtil.div(v1, v2, scale, RoundingMode.HALF_UP);
+    public BigNumber div(Number number, int scale) {
+        value = NumberUtil.div(value, number, scale, RoundingMode.HALF_UP);
         return this;
     }
 
-    public BigNumber div(String v1, String v2, int scale) {
-        value = NumberUtil.div(v1, v2, scale, RoundingMode.HALF_UP);
+    public BigNumber div(String number, int scale) {
+        value = NumberUtil.div(value, NumberUtil.toBigDecimal(number), scale, RoundingMode.HALF_UP);
         return this;
     }
 
-    public BigNumber divScale2(String v1, String v2) {
-        value = NumberUtil.div(v1, v2, 2, RoundingMode.HALF_UP);
+    public BigNumber divScale2(String number) {
+        value = NumberUtil.div(value, NumberUtil.toBigDecimal(number), 2, RoundingMode.HALF_UP);
         return this;
     }
 
-    public BigNumber divScale2(Number v1, Number v2) {
-        value = NumberUtil.div(v1, v2, 2, RoundingMode.HALF_UP);
+    public BigNumber divScale2(Number number) {
+        value = NumberUtil.div(value, number, 2, RoundingMode.HALF_UP);
         return this;
     }
 
