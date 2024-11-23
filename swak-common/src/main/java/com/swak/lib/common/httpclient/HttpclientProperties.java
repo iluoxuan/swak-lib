@@ -30,7 +30,7 @@ public class HttpclientProperties {
     private Map<String, Param> config = new HashMap<>();
 
     @Data
-    public class Param {
+    public static class Param {
 
         private String url;
 
