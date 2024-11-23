@@ -16,6 +16,10 @@ import java.math.RoundingMode;
 @Getter
 public class BigNumber {
 
+    public static final BigNumber ZERO = BigNumber.of(0);
+
+    public static final BigNumber ONE = BigNumber.of(1);
+
     private BigDecimal value;
 
     private BigNumber(BigDecimal value) {
