@@ -14,7 +14,7 @@ import java.math.RoundingMode;
  * @date: 2024/11/23
  */
 @Getter
-public class BigNumber extends Number {
+public class BigNumber extends Number implements Comparable<BigNumber> {
 
     public static final BigNumber ZERO = BigNumber.of(0);
 
@@ -99,24 +99,6 @@ public class BigNumber extends Number {
         return BigNumber.of(newValue);
     }
 
-
-    public static void main(String[] args) {
-
-        double totalCost = 10000.01;
-
-        double currentPrice = 100;
-        int minShares = 100;
-
-        BigNumber bigNumber = BigNumber.of(totalCost).add(currentPrice).mul(currentPrice).round2HalfUp();
-        System.out.println(bigNumber.getValue().toString());
-
-
-        BigDecimal a = new BigDecimal(100);
-        BigDecimal c = a.divide(new BigDecimal(3), 2, RoundingMode.HALF_UP);
-        System.out.println(a);
-        System.out.println(c);
-    }
-
     @Override
     public int intValue() {
         return value.intValue();
@@ -139,5 +121,27 @@ public class BigNumber extends Number {
 
     public String toString() {
         return value.toString();
+    }
+
+    @Override
+    public int compareTo(BigNumber o) {
+        return value.compareTo(o.value);
+    }
+
+    public static void main(String[] args) {
+
+        double totalCost = 10000.01;
+
+        double currentPrice = 100;
+        int minShares = 100;
+
+        BigNumber bigNumber = BigNumber.of(totalCost).add(currentPrice).mul(currentPrice).round2HalfUp();
+        System.out.println(bigNumber.getValue().toString());
+
+
+        BigDecimal a = new BigDecimal(100);
+        BigDecimal c = a.divide(new BigDecimal(3), 2, RoundingMode.HALF_UP);
+        System.out.println(a);
+        System.out.println(c);
     }
 }
