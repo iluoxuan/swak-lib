@@ -35,6 +35,7 @@
 
         <flatten-maven-plugin.version>1.2.7</flatten-maven-plugin.version>
         <weixin-java-open>4.6.0</weixin-java-open>
+        <jetcache.version>2.7.7</jetcache.version>
 
     </properties>
 
@@ -59,6 +60,13 @@
                 <groupId>cn.hutool</groupId>
                 <artifactId>hutool-bom</artifactId>
                 <version>${hutool.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+            <dependency>
+                <groupId>com.alicp.jetcache</groupId>
+                <artifactId>jetcache-bom</artifactId>
+                <version>${jetcache.version}</version>
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
