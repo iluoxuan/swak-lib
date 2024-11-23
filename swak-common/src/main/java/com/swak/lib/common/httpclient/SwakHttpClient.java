@@ -18,6 +18,7 @@ import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.message.BasicNameValuePair;
 import org.apache.http.util.EntityUtils;
 import org.springframework.http.MediaType;
+import org.springframework.web.util.UriComponentsBuilder;
 
 import java.net.URI;
 import java.nio.charset.StandardCharsets;
@@ -49,10 +50,17 @@ public class SwakHttpClient {
 
     private HttpReqName httpReqName;
 
+    private String path;
+
     public static SwakHttpClient create(HttpReqName name) {
+        return create(name, "");
+    }
+
+    public static SwakHttpClient create(HttpReqName name, String path) {
 
         SwakHttpClient client = new SwakHttpClient();
         client.httpReqName = name;
+        client.path = path;
         Assert.notNull(name, "http 名称不能为空 swak.http-client.name 配置");
         client.httpClient = HttpClientConfig.getSwakHttpClient();
         Assert.notNull(client.httpClient, "httpClient 不能为空");
@@ -63,6 +71,11 @@ public class SwakHttpClient {
 
     public SwakHttpClient url(String url) {
         this.url = url;
+        return this;
+    }
+
+    public SwakHttpClient path(String path) {
+        this.path = path;
         return this;
     }
 
@@ -104,7 +117,7 @@ public class SwakHttpClient {
     public String post() throws Exception {
 
         Assert.notBlank(this.url, "url 不能为空");
-        HttpPost request = new HttpPost(url);
+        HttpPost request = new HttpPost(getUrl());
         if (MapUtil.isNotEmpty(headers)) {
             headers.forEach(request::addHeader);
         }
@@ -117,11 +130,15 @@ public class SwakHttpClient {
         return executeRequest(httpClient, request);
     }
 
+    private String getUrl() {
+        return UriComponentsBuilder.fromHttpUrl(url).path(path).toUriString();
+    }
+
     public String get() throws Exception {
 
         Assert.notBlank(this.url, "url 不能为空");
 
-        URIBuilder uriBuilder = new URIBuilder(url);
+        URIBuilder uriBuilder = new URIBuilder(getUrl());
         if (MapUtil.isNotEmpty(params)) {
             params.forEach((k, v) -> uriBuilder.addParameter(k, v.toString()));
         }
