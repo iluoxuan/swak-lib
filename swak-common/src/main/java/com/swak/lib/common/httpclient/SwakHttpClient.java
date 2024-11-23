@@ -65,13 +65,12 @@ public class SwakHttpClient {
         client.httpClient = HttpClientConfig.getSwakHttpClient();
         Assert.notNull(client.httpClient, "httpClient 不能为空");
         client.httpclientProperties = HttpClientConfig.httpclientProperties();
+        HttpclientProperties.Param param = client.httpclientProperties.getParam(name);
+        client.url = param.getUrl();
+        Assert.notBlank(client.url, "url 不能为空");
+
         Assert.notNull(client.httpclientProperties, "httpclientProperties 不能为空");
         return client;
-    }
-
-    public SwakHttpClient url(String url) {
-        this.url = url;
-        return this;
     }
 
     public SwakHttpClient path(String path) {
@@ -116,7 +115,6 @@ public class SwakHttpClient {
 
     public String post() throws Exception {
 
-        Assert.notBlank(this.url, "url 不能为空");
         HttpPost request = new HttpPost(getUrl());
         if (MapUtil.isNotEmpty(headers)) {
             headers.forEach(request::addHeader);
@@ -135,8 +133,6 @@ public class SwakHttpClient {
     }
 
     public String get() throws Exception {
-
-        Assert.notBlank(this.url, "url 不能为空");
 
         URIBuilder uriBuilder = new URIBuilder(getUrl());
         if (MapUtil.isNotEmpty(params)) {
