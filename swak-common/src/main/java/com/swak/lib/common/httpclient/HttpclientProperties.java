@@ -2,6 +2,7 @@ package com.swak.lib.common.httpclient;
 
 import lombok.Data;
 import lombok.Getter;
+import lombok.Setter;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Configuration;
 
@@ -13,6 +14,7 @@ import java.util.Map;
  * @date: 2024/11/23
  */
 @Getter
+@Setter
 @Configuration
 @ConfigurationProperties(prefix = "swak.http-client")
 public class HttpclientProperties {
