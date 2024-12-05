@@ -30,7 +30,9 @@ public class ApiRes<T> {
     @ApiModelProperty("traceId")
     private String traceId;
 
-    @JsonIgnore
+    /**
+     * 返回给出去
+     */
     public boolean isSuccess() {
         return SysBizError.SUCCESS.getCode().equals(code);
     }
