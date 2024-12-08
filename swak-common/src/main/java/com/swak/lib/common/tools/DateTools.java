@@ -42,7 +42,7 @@ public class DateTools extends DateUtil {
     public static void main(String[] args) {
 
         Date date = getPreviousFriday(new Date());
-        System.out.println(format(date, "yyyy-MM-dd"));
+        System.out.println(date);
     }
 
 }
