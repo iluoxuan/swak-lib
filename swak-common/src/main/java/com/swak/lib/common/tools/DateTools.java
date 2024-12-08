@@ -5,6 +5,8 @@ import cn.hutool.core.date.DateTime;
 import cn.hutool.core.date.DateUtil;
 
 import java.time.format.DateTimeFormatter;
+import java.util.Calendar;
+import java.util.Date;
 
 /**
  * @author: ljq
@@ -26,6 +28,21 @@ public class DateTools extends DateUtil {
             return null;
         }
         return new DateTime(dateStr, format);
+    }
+
+    public static DateTime getPreviousFriday(Date date) {
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(date);
+        while (calendar.get(Calendar.DAY_OF_WEEK) != Calendar.FRIDAY) {
+            calendar.add(Calendar.DAY_OF_MONTH, -1);
+        }
+        return DateTime.of(calendar.getTime());
+    }
+
+    public static void main(String[] args) {
+
+        Date date = getPreviousFriday(new Date());
+        System.out.println(format(date, "yyyy-MM-dd"));
     }
 
 }
