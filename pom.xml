@@ -20,6 +20,7 @@
         <module>swak-client</module>
         <module>swak-common</module>
         <module>swak-mybatis-plus</module>
+        <module>swak-biz-engine</module>
     </modules>
 
     <properties>
